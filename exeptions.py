@@ -2,11 +2,11 @@ class BaseError(Exception):
     message = "Неизвестная ошибка"
 
 
-class NotEnoughtSpace(BaseError):
+class NotEnoughSpace(BaseError):
     message = "Недостаточно места"
 
 
-class NotEnoughtAmount(BaseError):
+class NotEnoughAmount(BaseError):
     message = "Недостаточно товара"
 
 

@@ -1,4 +1,4 @@
-from exeptions import NotEnoughtSpace, NotEnoughtAmount, UnknownTitle
+from exeptions import NotEnoughSpace, NotEnoughAmount, UnknownTitle
 from storage import Storage
 
 
@@ -14,19 +14,19 @@ class Store(Storage):
     def capacity(self):
         return self._capacity
 
-    def add(self, title, quantity):
+    def add(self, title: str, quantity: int) -> None:
         if self.get_free_space() >= quantity:
             if self._is_in_storage(title):
                 self.items[title] += quantity
             else:
                 self.items[title] = quantity
         else:
-            raise NotEnoughtSpace
+            raise NotEnoughSpace
 
-    def remove(self, title, quantity):
+    def remove(self, title: str, quantity: int) -> None:
         if self._is_in_storage(title):
             if quantity > self.items[title]:
-                raise NotEnoughtAmount
+                raise NotEnoughAmount
             else:
                 print("Нужное количество есть на складе")
                 self.items[title] -= quantity
@@ -36,19 +36,19 @@ class Store(Storage):
         if self.items[title] == 0:
             self.items.pop(title)
 
-    def get_free_space(self):
+    def get_free_space(self) -> int:
         free_space = self.capacity - sum(self.items.values())
         if free_space < 0:
             return 0
         return free_space
 
-    def get_items(self):
+    def get_items(self) -> str:
         items_list = []
         for item in self.items:
             items_list.append(f"{self.items[item]} {item}")
         return "\n".join(items_list)
 
-    def get_unique_items_count(self):
+    def get_unique_items_count(self) -> int:
         return len(set(self.items.keys()))
 
     def _is_in_storage(self, title: str) -> bool:
